@@ -10,10 +10,9 @@ import { Menu } from "lucide-react";
 
 const Navbar = () => {
 	return (
-		<nav className="flex items-center justify-between p-4 bg-white shadow-sm">
-			<div className="text-xl font-bold">IMMOBILIEN SUCHE</div>
-
-			<div className="hidden md:flex items-center space-x-4">
+		<nav className="flex items-center justify-between bg-white shadow-sm  w-full">
+			<div className="text-xl font-bold p-2">IMMOBILIEN SUCHE</div>
+			<div className="hidden md:flex items-center space-x-4 p-2">
 				<Button variant="ghost">Kaufen</Button>
 				<Button variant="ghost">Mieten</Button>
 				<Button variant="ghost">Inserat schalten</Button>
