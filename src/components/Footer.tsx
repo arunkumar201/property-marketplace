@@ -42,9 +42,6 @@ const Footer = () => {
 						</ul>
 					</nav>
 
-					<div>
-						{/* This column is intentionally left blank to match the layout in the image */}
-					</div>
 				</div>
 
 				<hr className="my-8 border-gray-600" />
