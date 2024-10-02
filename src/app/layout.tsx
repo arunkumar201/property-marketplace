@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { env } from "@/env";
-import OgImage from "../../public/og-image.jpeg"
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -17,6 +17,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_WEB_URL),
   title: "Property Marketplace - Find Your Dream Home",
   description: "Search and find properties based on location with advanced filters and pagination. Explore our extensive property listings and find your dream home today.",
   keywords: "property, real estate, home, search, filters, pagination, location, dream home",
@@ -25,13 +26,13 @@ export const metadata: Metadata = {
     description: "Search and find properties based on location with advanced filters and pagination. Explore our extensive property listings and find your dream home today.",
     type: "website",
     url: env.NEXT_PUBLIC_WEB_URL,
-    images: ['./og-image'],
+    images: ['./og-image.jpeg'],
   },
   twitter: {
     card: "summary_large_image",
     creator: "@propertymarketplace",
     site: "@propertymarketplace",
-    images: ['./og-image'],
+    images: ['./og-image.jpeg'],
     title: "Property Marketplace - Find Your Dream Home",
     description: "Search and find properties based on location with advanced filters and pagination. Explore our extensive property listings and find your dream home today.",
   },
@@ -46,10 +47,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased p-4`}
       >
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
