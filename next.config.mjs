@@ -2,6 +2,9 @@
 const nextConfig={
 	images: {
 		formats: ["image/avif"]
+	},
+	experimental: {
+		instrumentationHook: true
 	}
 };
 
