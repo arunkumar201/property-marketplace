@@ -49,16 +49,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased p-12`}
+        className={`${geistSans.variable} ${geistMono.variable}`}
       >
-        <FilterProvider>
-          <Toaster
-            position="bottom-right"
-          />
-          <Navbar />
-          {children}
-          <Footer />
-        </FilterProvider>
+        <div className="flex flex-col min-h-screen antialiased p-12 overflow-scroll">
+          <FilterProvider>
+            <Toaster
+              position="bottom-right"
+            />
+            <Navbar />
+            {children}
+            <Footer />
+          </FilterProvider>
+        </div>
       </body>
     </html>
   );

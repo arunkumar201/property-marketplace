@@ -12,7 +12,7 @@ export const TypeSelect: React.FC = () => {
 			</SelectTrigger>
 			<SelectContent>
 				{PROPERTY_TYPES.map((item,index) => {
-					return <SelectItem key={index} value={item} className={cn("",type === item && "bg-[#748790]")} > {item}</SelectItem>
+					return <SelectItem key={index} value={item} className={cn("mb-1",type === item && "bg-[#748790]")} > {item}</SelectItem>
 				})}
 			</SelectContent>
 		</Select >
@@ -27,8 +27,8 @@ export const PropertyTypeSelect: React.FC = () => {
 				<SelectValue placeholder="Verkauf oder Wohnung" />
 			</SelectTrigger>
 			<SelectContent>
-				<SelectItem key="BUY" value="BUY" className={cn("",saleType == "BUY" && "bg-[#748790]")}>Kaufen</SelectItem>
-				<SelectItem key="SELL" value="SELL" className={cn("",saleType == "SELL" && "bg-[#748790]")}> Verkaufen</SelectItem>
+				<SelectItem key="BUY" value="BUY" className={cn("mb-1",saleType == "BUY" && "bg-[#748790]")}>Kaufen</SelectItem>
+				<SelectItem key="SELL" value="SELL" className={cn("mb-1",saleType == "SELL" && "bg-[#748790]")}> Verkaufen</SelectItem>
 			</SelectContent>
 		</Select >
 	)
