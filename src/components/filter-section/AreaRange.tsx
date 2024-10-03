@@ -5,7 +5,7 @@ import { useFilter } from "@/hooks/useSearchFilter";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Popover,PopoverContent,PopoverTrigger } from "../ui/popover";
-import { Square,ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 export const AreaRange: React.FC = () => {
 	const { areaMin,areaMax,setFilter } = useFilter();

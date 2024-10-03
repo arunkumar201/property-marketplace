@@ -7,15 +7,14 @@ import { PropertyTypeSelect,TypeSelect } from "./PropertyTypeSelect";
 import { PriceRange } from "./PriceRange";
 import { AreaRange } from "./AreaRange";
 import { RoomsSelect } from "./RoomsSelect";
-import { Button } from "../ui/button";
 import iconPro from "@/../public/IconlyPro.png"
 import Image from "next/image";
 export const PropertyFilter: React.FC = () => {
 	const router = useRouter();
 	const searchParams = useSearchParams();
+	const { location,type,priceMin,priceMax,areaMin,areaMax,rooms } = useFilter();
 
 	const applyFilters = () => {
-		const { location,type,priceMin,priceMax,areaMin,areaMax,rooms } = useFilter();
 		const params = new URLSearchParams(searchParams.toString());
 
 		if (location) params.set('location',location);
