@@ -1,5 +1,3 @@
 import "server-only";
 
-export const getTotalProperties = async () => {
-	return 8;
-};
+export * from "./add-property";

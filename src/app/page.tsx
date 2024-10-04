@@ -1,6 +1,5 @@
 import { PropertyFilter } from "@/components/filter-section/PropertyFilter";
 import { PropertyListing } from "@/components/PropertyListing";
-import { getTotalProperties } from "@/services";
 import { getRefineFilterParams } from "@/utils/refineFilterParams";
 import { Suspense } from "react";
 const property = {
@@ -39,7 +38,7 @@ export default async function Home({ params,searchParams }: IHomePage) {
   const refinedFilterCriteria = getRefineFilterParams(searchParams);
   console.log(refinedFilterCriteria,"refinedFilterCriteria");
   //get the total pages in the db 
-  const totalPages = await getTotalProperties();
+  const totalPages = 7;
   return (
     <div className="relative mt-10 grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen gap-16  font-[family-name:var(--font-geist-sans)]">
       <Suspense fallback={"loading..."}>

@@ -3,6 +3,7 @@ import { Card,CardContent,CardFooter,CardHeader,CardTitle } from "@/components/u
 import { Heart,Eye } from 'lucide-react';
 import { formatCurrency } from '@/utils';
 import { BlurImage } from './BlurImage';
+import { HardIcon } from './HardIcon';
 
 export interface IPropertyListingCard {
 	id: string;
@@ -37,9 +38,7 @@ export const PropertyListingCard: React.FC<IPropertyListingCard> = ({
 						url={imageUrl}
 						name={title}
 					/>
-					<button className="absolute top-2 right-2 p-1  rounded-full">
-						<Heart className="h-6 w-6 text-[#FAFAFA]" />
-					</button>
+					<HardIcon />
 				</div>
 			</CardHeader>
 			<CardContent className="p-4 w-full">

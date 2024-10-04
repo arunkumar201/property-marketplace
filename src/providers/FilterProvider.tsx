@@ -71,8 +71,8 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
 			saleType: searchParams.get('saleType') ?? "BUY",
 			priceMin: searchParams.get('priceMin') ?? "100",
 			priceMax: searchParams.get('priceMax') ?? "400",
-			areaMin: searchParams.get('areaMin') ?? "1",
-			areaMax: searchParams.get('areaMax') ?? "2",
+			areaMin: searchParams.get('areaMin') ?? "10",
+			areaMax: searchParams.get('areaMax') ?? "2000",
 			rooms: searchParams.get('rooms')?.split(',') ?? ["3"],
 			currentPage: searchParams.get('currentPage') ?? "1",
 		};
