@@ -1,4 +1,3 @@
-'use client'
 import React from 'react';
 import { IPropertyListingCard,PropertyListingCard } from "./PropertyListingCard";
 import Pagination from './Pagination';
@@ -18,8 +17,6 @@ export const PropertyListing: React.FC<IPropertyListing> = ({ propertyList,total
 			</div>
 			<Pagination
 				totalPages={totalPages}
-				currentPage={3}
-				onPageChange={() => 4}
 				className="mt-8"
 			/>
 		</>

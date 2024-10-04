@@ -2,7 +2,7 @@ import "server-only";
 
 import { IFilterParams } from "@/app/page";
 
-export const refineFilterParams = (params: IFilterParams) => {
+export const getRefineFilterParams = (params: IFilterParams) => {
 	const refinedParams: IFilterParams = {
 		location: "",
 		type: "Haus",
@@ -12,6 +12,7 @@ export const refineFilterParams = (params: IFilterParams) => {
 		areaMax: "2",
 		rooms: "3",
 		saleType: "BUY",
+		currentPage: "1",
 	};
 
 	if (params.location) {
@@ -51,7 +52,9 @@ export const refineFilterParams = (params: IFilterParams) => {
 	}
 
 	if (params.rooms) {
-		const rooms = params.rooms.split(",").map((room) => parseInt(room));
+		const rooms = Array.isArray(params.rooms)
+			? params.rooms.map((room) => parseInt(room))
+			: params.rooms.split(",").map((room) => parseInt(room));
 		if (rooms.every((room) => !isNaN(room))) {
 			refinedParams.rooms = rooms.map((room) => room.toString()).join(",");
 		}
@@ -59,6 +62,12 @@ export const refineFilterParams = (params: IFilterParams) => {
 
 	if (params.saleType) {
 		refinedParams.saleType = params.saleType.trim().toUpperCase();
+	}
+	if (params.currentPage) {
+		const currentPage = parseInt(params.currentPage);
+		if (!isNaN(currentPage) && currentPage > 0) {
+			refinedParams.currentPage = currentPage.toString();
+		}
 	}
 
 	return refinedParams;

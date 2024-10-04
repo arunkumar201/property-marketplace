@@ -3,21 +3,25 @@
 import React,{ useState,useEffect } from 'react';
 import { ChevronLeft,ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useFilter } from '@/hooks';
 
 interface PaginationProps {
 	totalPages: number;
-	currentPage: number;
-	onPageChange: (page: number) => void;
 	className?: string;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
 	totalPages,
-	currentPage,
-	onPageChange,
 	className = '',
 }) => {
 	const [visiblePages,setVisiblePages] = useState<number[]>([]);
+	const { currentPage,setFilter } = useFilter();
+
+	const onPageChange = (page: number) => {
+		if (page > 0 && page <= totalPages) {
+			setFilter('currentPage',page.toString());
+		}
+	};
 
 	useEffect(() => {
 		const calculateVisiblePages = () => {
@@ -30,15 +34,14 @@ const Pagination: React.FC<PaginationProps> = ({
 				const leftOffset = Math.floor((maxVisiblePages - 3) / 2);
 				const rightOffset = maxVisiblePages - 3 - leftOffset;
 
-				if (currentPage <= leftOffset + 1) {
-					pages = [...Array(maxVisiblePages - 2).keys()].map(i => i + 1);
-					pages.push(0,totalPages);
-				} else if (currentPage >= totalPages - rightOffset) {
+				if (Number(currentPage) <= leftOffset + 1) {
+					pages = Array.from({ length: maxVisiblePages - 2 },(_,i) => i + 1); pages.push(0,totalPages);
+				} else if (Number(currentPage) >= totalPages - rightOffset) {
 					pages = [1,0];
-					pages.push(...Array(maxVisiblePages - 2).keys().map(i => totalPages - maxVisiblePages + 3 + i));
+					pages.push(...Array.from(Array(maxVisiblePages - 2).keys()).map(i => totalPages - maxVisiblePages + 3 + i));
 				} else {
 					pages = [1,0];
-					for (let i = currentPage - leftOffset; i <= currentPage + rightOffset; i++) {
+					for (let i = Number(currentPage) - leftOffset; i <= Number(currentPage) + rightOffset; i++) {
 						pages.push(i);
 					}
 					pages.push(0,totalPages);
@@ -58,8 +61,8 @@ const Pagination: React.FC<PaginationProps> = ({
 				variant="outline"
 				className='w-fit p-3 flex justify-between items-center'
 				size="icon"
-				onClick={() => onPageChange(Math.max(1,currentPage - 1))}
-				disabled={currentPage === 1}
+				onClick={() => onPageChange(Math.max(1,Number(currentPage) - 1))}
+				disabled={Number(currentPage) === 1}
 			>
 				<ChevronLeft className="h-6 w-6 text-gray-700 -ml-3" />
 				<span className='text-[#31393D]'>Zurück</span>
@@ -71,7 +74,7 @@ const Pagination: React.FC<PaginationProps> = ({
 				) : (
 					<Button
 						key={page}
-						variant={currentPage === page ? "default" : "outline"}
+							variant={Number(currentPage) === page ? "default" : "outline"}
 						size="icon"
 						onClick={() => onPageChange(page)}
 					>
@@ -83,8 +86,8 @@ const Pagination: React.FC<PaginationProps> = ({
 				variant="outline"
 				className='w-fit p-3 flex justify-between items-center'
 				size="icon"
-				onClick={() => onPageChange(Math.min(totalPages,currentPage + 1))}
-				disabled={currentPage === totalPages}
+				onClick={() => onPageChange(Math.min(totalPages,Number(currentPage) + 1))}
+				disabled={Number(currentPage) === totalPages}
 			>
 				<span className='text-[#31393D]'>Weiter</span>
 				<ChevronRight className="h-6 w-6 text-gray-700" />

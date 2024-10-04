@@ -1,7 +1,7 @@
 import { PropertyFilter } from "@/components/filter-section/PropertyFilter";
 import { PropertyListing } from "@/components/PropertyListing";
 import { getTotalProperties } from "@/services";
-import { refineFilterParams } from "@/utils/refineFilterParams";
+import { getRefineFilterParams } from "@/utils/refineFilterParams";
 import { Suspense } from "react";
 const property = {
   id: "10025",
@@ -25,8 +25,9 @@ export interface IFilterParams {
   priceMax?: string;
   areaMin?: string;
   areaMax?: string;
-  rooms?: string;
+  rooms?: string | string[];
   saleType?: string;
+  currentPage: string;
 }
 
 interface IHomePage {
@@ -35,7 +36,7 @@ interface IHomePage {
 }
 export default async function Home({ params,searchParams }: IHomePage) {
   console.log(params,"params");
-  const refinedFilterCriteria = refineFilterParams(searchParams);
+  const refinedFilterCriteria = getRefineFilterParams(searchParams);
   console.log(refinedFilterCriteria,"refinedFilterCriteria");
   //get the total pages in the db 
   const totalPages = await getTotalProperties();
