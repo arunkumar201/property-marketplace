@@ -1,6 +1,7 @@
 import { ZProperty } from "@/schema";
 import { addProperty } from "@/services";
 import { validateInputs } from "@/utils/validate";
+import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -9,6 +10,8 @@ export async function POST(request: Request) {
 	try {
 		validateInputs([data, ZProperty]);
 		const property = await addProperty(data);
+		//revalidat the cache after adding a new property
+		revalidateTag("total-properties");
 		return NextResponse.json(
 			{
 				success: true,
