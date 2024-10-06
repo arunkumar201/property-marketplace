@@ -11,6 +11,16 @@ const locations = [
 	"Tirol",
 	"Vorarlberg",
 	"Kärnten",
+	"Schweiz",
+	"Andaman und Nicobar Islands",
+	"Australien",
+	"Bahamas",
+	"Barbados",
+	"Belize",
+	"Bermuda",
+	"Bolivia",
+	"Brasilien",
+	"Brunei Darussalam",
 ];
 
 export const getSupportedLocationsAction = async (
@@ -23,7 +33,7 @@ export const getSupportedLocationsAction = async (
 					loc.toLowerCase().includes(searchTerm.toLowerCase())
 				);
 				resolve(filteredLocations);
-			}, 100);
+			}, 50);
 		} catch (error) {
 			reject(error);
 		}

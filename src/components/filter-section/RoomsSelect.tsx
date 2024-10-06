@@ -14,12 +14,12 @@ export const RoomsSelect: React.FC = () => {
 
 	const handleRoomClick = (value: string) => {
 		let updatedRooms;
-		if (rooms.includes(value)) {
+		if (rooms && rooms.includes(value)) {
 			updatedRooms = rooms.filter((room: string) => room !== value);
 		} else {
-			updatedRooms = [...rooms,value];
+			updatedRooms = [...(rooms || []),value];
 		}
-		setFilter('rooms',updatedRooms);
+		setFilter('rooms',updatedRooms || []);
 	};
 
 	return (
@@ -32,11 +32,11 @@ export const RoomsSelect: React.FC = () => {
 			</PopoverTrigger>
 			<PopoverContent className="w-[330px] p-2">
 				<div className="grid grid-cols-6 gap-2">
-					{ROOM_OPTIONS.map((value) => (
+					{ROOM_OPTIONS.map((value: string) => (
 						<Button
-							className={cn('m-0 w-[3rem] p-1 md:p-1',rooms.includes(value) && "bg-[#748790]")}
+							className={cn('m-0 w-[3rem] p-1 md:p-1',rooms && rooms.includes(value) && "bg-[#748790]")}
 							key={value}
-							variant={rooms.includes(value) ? "default" : "outline"}
+							variant={rooms && rooms.includes(value) ? "default" : "outline"}
 							onClick={() => handleRoomClick(value)}
 						>
 							{value}

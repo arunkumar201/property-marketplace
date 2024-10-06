@@ -11,6 +11,7 @@ export const ZProperty = z.object({
 	price: z.number(),
 	imageUrl: z.string(),
 	views: z.number(),
+	saleType: z.string(),
 });
 
 export type TProperty = z.infer<typeof ZProperty>;

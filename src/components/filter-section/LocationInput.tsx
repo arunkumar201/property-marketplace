@@ -44,6 +44,13 @@ export const LocationInput: React.FC = () => {
 
 	},[debouncedSearch]);
 
+	useEffect(() => {
+		if (debouncedSearch.trim().length === 0) {
+			setFilter("location","")
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[debouncedSearch])
+
 	const handleSelect = (value: string) => {
 		isUserInputRef.current = false;
 		setSearch(value);

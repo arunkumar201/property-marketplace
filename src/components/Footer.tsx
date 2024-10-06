@@ -3,7 +3,7 @@ import { YoutubeIcon } from 'lucide-react';
 
 const Footer = () => {
 	return (
-		<footer className="bg-[#33443C] text-white p-8">
+		<footer className="bg-[#33443C] text-white p-8 mt-12">
 			<div className="container mx-auto">
 				<div className="grid grid-cols-1 md:grid-cols-4 gap-8">
 					<div className='flex flex-col gap-y-4'>

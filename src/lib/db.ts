@@ -12,7 +12,10 @@ export async function dbConnect() {
 	}
 
 	try {
-		const cnx = await mongoose.connect(env.MONGODB_URI);
+		const cnx = await mongoose.connect(env.MONGODB_URI, {
+			dbName: "property-listing",
+		});
+
 		cachedConnection = cnx.connection;
 		console.log("New mongodb connection established");
 		return cachedConnection;

@@ -29,7 +29,7 @@ export const PropertyFilter: React.FC = () => {
 	};
 
 	return (
-		<div className="flex bg-white rounded-lg w-full gap-2 p-2">
+		<div className="flex bg-white rounded-lg w-full gap-2 p-2 h-fit -mb-3">
 			<div className="w-[30%]">
 				<LocationInput />
 			</div>

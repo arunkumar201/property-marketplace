@@ -1,16 +1,17 @@
 import "server-only";
 
 import { IFilterParams } from "@/app/page";
+import { ROOM_OPTIONS } from "@/constants";
 
 export const getRefineFilterParams = (params: IFilterParams) => {
 	const refinedParams: IFilterParams = {
 		location: "",
 		type: "Haus",
 		priceMin: "100",
-		priceMax: "400",
+		priceMax: "400000000",
 		areaMin: "1",
-		areaMax: "2",
-		rooms: "3",
+		areaMax: "200000",
+		rooms: ROOM_OPTIONS,
 		saleType: "BUY",
 		currentPage: "1",
 	};
@@ -52,12 +53,13 @@ export const getRefineFilterParams = (params: IFilterParams) => {
 	}
 
 	if (params.rooms) {
-		const rooms = Array.isArray(params.rooms)
-			? params.rooms.map((room) => parseInt(room))
-			: params.rooms.split(",").map((room) => parseInt(room));
-		if (rooms.every((room) => !isNaN(room))) {
-			refinedParams.rooms = rooms.map((room) => room.toString()).join(",");
-		}
+		const rooms =
+			typeof params.rooms === "string"
+				? params.rooms.split(",").map((room) => room)
+				: Array.isArray(params.rooms)
+				? params.rooms.map((room) => room)
+				: [];
+		refinedParams.rooms = rooms;
 	}
 
 	if (params.saleType) {

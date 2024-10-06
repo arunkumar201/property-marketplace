@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card,CardContent,CardFooter,CardHeader,CardTitle } from "@/components/ui/card"
-import { Heart,Eye } from 'lucide-react';
+import { Eye } from 'lucide-react';
 import { formatCurrency } from '@/utils';
 import { BlurImage } from './BlurImage';
 import { HardIcon } from './HardIcon';
@@ -31,7 +31,7 @@ export const PropertyListingCard: React.FC<IPropertyListingCard> = ({
 	views
 }) => {
 	return (
-		<Card className="w-[360px] mx-auto overflow-hidden shadow-lg">
+		<Card className="w-[360px] mx-auto overflow-hidden shadow-lg h-[430px]">
 			<CardHeader className="p-0">
 				<div className="relative">
 					<BlurImage
@@ -41,12 +41,12 @@ export const PropertyListingCard: React.FC<IPropertyListingCard> = ({
 					<HardIcon />
 				</div>
 			</CardHeader>
-			<CardContent className="p-4 w-full">
+			<CardContent className="p-4 w-full h-[8rem]">
 				<CardTitle className="text-[15px] font-bold mb-2">{title}</CardTitle>
 				<p className="text-sm text-gray-800 mb-1">{`ID: ${id} | ${type} | ${location}`}</p>
 				<p className="text-sm text-gray-800 ">{`${rooms} Zimmer | ${bathrooms} Bad | ${area}  m²`}</p>
 			</CardContent>
-			<CardFooter className="bg-inherit p-4 flex justify-between items-center -mt-2">
+			<CardFooter className="bg-inherit p-4 flex justify-between items-center mb-1">
 				<p className="text-[24px] font-bold text-[#31393D]">{formatCurrency('de-DE',price,'EUR')}</p>
 				<div className="flex items-center text-[#748790] gap-2 mt-2">
 					<span className="text-base">{views}</span>

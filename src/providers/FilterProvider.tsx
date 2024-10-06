@@ -1,6 +1,6 @@
 'use client'
 
-import { IFilterParams } from "@/app/page";
+import { ROOM_OPTIONS } from "@/constants";
 import { useRouter,useSearchParams } from "next/navigation";
 import React,{ createContext,useEffect,useState } from "react";
 
@@ -29,11 +29,11 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
 		location: searchParams.get('location') ?? "",
 		type: searchParams.get('type') ?? "Haus",
 		saleType: searchParams.get('saleType') ?? "BUY",
-		priceMin: searchParams.get('priceMin') ?? "100",
-		priceMax: searchParams.get('priceMax') ?? "400",
-		areaMin: searchParams.get('areaMin') ?? "1",
-		areaMax: searchParams.get('areaMax') ?? "2",
-		rooms: searchParams.get('rooms')?.split(',') ?? ["3"],
+		priceMin: searchParams.get('priceMin') ?? "10",
+		priceMax: searchParams.get('priceMax') ?? "4000000",
+		areaMin: searchParams.get('areaMin') ?? "10",
+		areaMax: searchParams.get('areaMax') ?? "2000000",
+		rooms: searchParams.get('rooms')?.split(',') ?? ROOM_OPTIONS,
 		currentPage: searchParams.get('currentPage') ?? "1",
 	});
 
@@ -47,7 +47,7 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
 	const applyFilters = () => {
 		const params = new URLSearchParams();
 
-		if (filters.location) params.set('location',filters.location);
+		if (filters.location || filters.location === "") params.set('location',filters.location);
 		if (filters.type) params.set('type',filters.type);
 		if (filters.saleType) params.set('saleType',filters.saleType);
 		if (filters.priceMin) params.set('priceMin',filters.priceMin);
@@ -62,18 +62,19 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	useEffect(() => {
 		applyFilters();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[filters]);
 
 	useEffect(() => {
 		const newFilters = {
 			location: searchParams.get('location') ?? "",
 			type: searchParams.get('type') ?? "Haus",
-			saleType: searchParams.get('saleType') ?? "BUY",
+			saleType: searchParams.get('saleType') ?? "SELL",
 			priceMin: searchParams.get('priceMin') ?? "100",
-			priceMax: searchParams.get('priceMax') ?? "400",
+			priceMax: searchParams.get('priceMax') ?? "40000000",
 			areaMin: searchParams.get('areaMin') ?? "10",
-			areaMax: searchParams.get('areaMax') ?? "2000",
-			rooms: searchParams.get('rooms')?.split(',') ?? ["3"],
+			areaMax: searchParams.get('areaMax') ?? "20000000",
+			rooms: searchParams.get('rooms')?.split(',') ?? ROOM_OPTIONS,
 			currentPage: searchParams.get('currentPage') ?? "1",
 		};
 

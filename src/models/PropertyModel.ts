@@ -14,7 +14,17 @@ const propertySchema = new Schema<IPropertyModel>({
 	price: { type: Number, required: true },
 	imageUrl: { type: String, required: true },
 	views: { type: Number, required: true },
+	saleType: { type: String, default: "BUY" },
 });
+
+propertySchema.index({
+	location: "text",
+	type: "text",
+	rooms: 1,
+	area: 1,
+	price: 1,
+});
+
 
 const PropertyModel: Model<IPropertyModel> =
 	mongoose.models.Property ??

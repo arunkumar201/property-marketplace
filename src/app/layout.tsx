@@ -4,7 +4,6 @@ import "./globals.css";
 import { env } from "@/env";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { FilterProvider } from "@/providers/FilterProvider";
 import { Toaster } from "react-hot-toast";
 
 const geistSans = localFont({
@@ -52,14 +51,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable}`}
       >
         <div className="flex flex-col min-h-screen antialiased p-12 overflow-scroll">
-          <FilterProvider>
             <Toaster
               position="bottom-right"
-            />
+          />
             <Navbar />
             {children}
-            <Footer />
-          </FilterProvider>
+          <Footer />
         </div>
       </body>
     </html>
