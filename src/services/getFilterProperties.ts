@@ -100,7 +100,7 @@ export const getFilterProperties = async ({ params }: IGetFilterProperties) => {
 		},
 		[`getFilterProperties-${JSON.stringify(params)}`],
 		{
-			tags: [`property-${JSON.stringify(params)}`],
+			tags: [`property-${JSON.stringify(params)}`, "get-properties"],
 			revalidate: DEFAULT_CACHE_TIME,
 		}
 	)();
