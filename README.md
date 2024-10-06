@@ -1,18 +1,42 @@
+# Property Marketplace
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+Node.js (version 18 or later)
+MongoDB (Make sure you have a MongoDB instance running)
+pnpm (version 8.0 or later)
+
+Ensure you have [pnpm](https://pnpm.io) installed. If not, you can install it using:
+
+## Getting 
+
+1. Install dependencies
+```bash 
+# if not install
+npm install -g pnpm 
+pnpm i
+```
+2. Set up environment variables
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env
+
 ```
+- Edit the .env file and add your MongoDB connection string and any other necessary environment variables.
+
+3. Run the development server
+```bash 
+pnpm dev
+
+```
+### Scripts
+
+-  pnpm dev: Starts the development server
+-  pnpm build: Builds the app for production
+-  pnpm start: Runs the built app in production mode
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
