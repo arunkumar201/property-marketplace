@@ -40,13 +40,21 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
 	});
 
 	const setFilter = (key: string,value: string | string[]) => {
-		setFilters((prevFilters) => ({
-			...prevFilters,
-			[key]: value,
-		}));
+		setFilters((prevFilters) => {
+			const updatedFilters = {
+				...prevFilters,
+				[key]: value,
+			};
+
+			if (key !== 'currentPage') {
+				updatedFilters.currentPage = '1';
+			}
+
+			return updatedFilters;
+		});
 	};
 
-	const applyFilters = (setCurrentPage = false) => {
+	const applyFilters = () => {
 		const params = new URLSearchParams();
 
 		if (filters.location || filters.location === "")
@@ -58,30 +66,16 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
 		if (filters.areaMin) params.set("areaMin",filters.areaMin);
 		if (filters.areaMax) params.set("areaMax",filters.areaMax);
 		if (filters.rooms) params.set("rooms",filters.rooms.join(","));
-		if (filters.currentPage) params.set("currentPage",setCurrentPage ? "1" : filters.currentPage);
+		if (filters.currentPage) params.set("currentPage",filters.currentPage);
 
 		router.push(`?${params.toString()}`);
 	};
 
-	useEffect(() => {
-		const setCurrentPage = true;
-		applyFilters(setCurrentPage);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[
-		filters.areaMax,
-		filters.areaMin,
-		filters.location,
-		filters.priceMax,
-		filters.rooms,
-		filters.priceMin,
-		filters.type,
-		filters.saleType,
-	]);
 
 	useEffect(() => {
 		applyFilters();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[filters.currentPage]);
+	},[filters]);
 
 	useEffect(() => {
 		const newFilters = {
