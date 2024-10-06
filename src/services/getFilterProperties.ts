@@ -5,6 +5,7 @@ import { IFilterParams } from "@/app/page";
 import { unstable_cache } from "next/cache";
 import { Property } from "@/models";
 import { ITEM_PER_PAGE, ROOM_OPTIONS } from "@/constants";
+import { DEFAULT_CACHE_TIME } from ".";
 
 interface IGetFilterProperties {
 	params: IFilterParams;
@@ -100,7 +101,7 @@ export const getFilterProperties = async ({ params }: IGetFilterProperties) => {
 		[`getFilterProperties-${JSON.stringify(params)}`],
 		{
 			tags: [`property-${JSON.stringify(params)}`],
-			revalidate: 1,
+			revalidate: DEFAULT_CACHE_TIME,
 		}
 	)();
 };

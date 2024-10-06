@@ -1,6 +1,7 @@
 'use client'
 
 import { ROOM_OPTIONS } from "@/constants";
+import useThrottled from "@/hooks/useThrottle";
 import { useRouter,useSearchParams } from "next/navigation";
 import React,{ createContext,useEffect,useState } from "react";
 
@@ -25,6 +26,7 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
 	const searchParams = useSearchParams();
 	const router = useRouter();
 
+
 	const [filters,setFilters] = useState({
 		location: searchParams.get('location') ?? "",
 		type: searchParams.get('type') ?? "Haus",
@@ -44,7 +46,7 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
 		}));
 	};
 
-	const applyFilters = () => {
+	const applyFilters = useThrottled(() => {
 		const params = new URLSearchParams();
 
 		if (filters.location || filters.location === "") params.set('location',filters.location);
@@ -58,7 +60,7 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
 		if (filters.currentPage) params.set('currentPage',filters.currentPage);
 
 		router.push(`?${params.toString()}`);
-	};
+	},1000);
 
 	useEffect(() => {
 		applyFilters();

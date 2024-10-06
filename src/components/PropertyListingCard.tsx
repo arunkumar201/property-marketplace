@@ -18,7 +18,7 @@ export interface IPropertyListingCard {
 	views: number;
 }
 
-export const PropertyListingCard: React.FC<IPropertyListingCard> = ({
+export const PropertyListingCard: React.FC<IPropertyListingCard> = async ({
 	id,
 	title,
 	location,
@@ -31,7 +31,7 @@ export const PropertyListingCard: React.FC<IPropertyListingCard> = ({
 	views
 }) => {
 	return (
-		<Card className="w-[360px] mx-auto overflow-hidden shadow-lg h-[430px]">
+		<Card className="md:max-w-[360px] w-full mx-auto overflow-hidden shadow-lg h-[430px] flex-1">
 			<CardHeader className="p-0">
 				<div className="relative">
 					<BlurImage

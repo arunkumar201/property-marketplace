@@ -20,7 +20,7 @@ export function BlurImage({
 			objectFit="cover"
 			width={300}
 			height={300}
-			className={`h-[240px] w-[360px] rounded-t-xl object-fill
+			className={`h-[240px] min-w-[360px] w-full rounded-t-xl object-fill
               duration-700 ease-in-out group-hover:opacity-75 hover:scale-105 hover:shadow-xl
               ${isLoading ? "blur-xl backdrop" : "blur-0 grayscale-0"})`
 			}

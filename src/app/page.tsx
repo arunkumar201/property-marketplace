@@ -40,8 +40,8 @@ export default async function Home({ params,searchParams }: IHomePage) {
 
   const { properties,totalPages } = await getFilterProperties({ params: refinedFilterCriteria });
   return (
-    <div className="relative mt-10 grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen gap-16  font-[family-name:var(--font-geist-sans)]">
-      <PropertyListing propertyList={properties} totalPages={totalPages} />
+    <div className="h-full w-full mt-10 grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen gap-16  font-[family-name:var(--font-geist-sans)]">
+      <PropertyListing propertyList={properties} totalPages={totalPages} params={JSON.stringify(refinedFilterCriteria)} />
     </div>
   );
 }
