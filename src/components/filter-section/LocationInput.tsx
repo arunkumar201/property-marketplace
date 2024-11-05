@@ -11,12 +11,12 @@ import { cn } from '@/lib/utils';
 export const LocationInput: React.FC = () => {
 	const { location,setFilter } = useFilter();
 	const [loading,setIsLoading] = useState(true);
-	const [search,setSearch] = useState(location || '');
+	const [search,setSearch] = useState(location || null);
 
 	const isUserInputRef = React.useRef(true);
 
 	const [locations,setLocations] = useState<string[]>([]);
-	const debouncedSearch = useDebounce(search,300);
+	const debouncedSearch = useDebounce(search!,300);
 	const [isDropdownOpen,setIsDropdownOpen] = useState(false);
 
 	useEffect(() => {
@@ -32,7 +32,7 @@ export const LocationInput: React.FC = () => {
 			}
 		};
 
-		if (debouncedSearch.trim() && isUserInputRef.current) {
+		if (debouncedSearch?.trim() && isUserInputRef.current) {
 			fetchLocations().then(() => {
 				setIsDropdownOpen(true);
 			});
@@ -45,7 +45,7 @@ export const LocationInput: React.FC = () => {
 	},[debouncedSearch]);
 
 	useEffect(() => {
-		if (debouncedSearch.trim().length === 0) {
+		if (debouncedSearch?.trim().length === 0) {
 			setFilter("location","")
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -75,7 +75,7 @@ export const LocationInput: React.FC = () => {
 					type="text"
 					className="relative flex-1 outline-none bg-transparent"
 					placeholder="Bundesland, Ort oder Postleitzahl"
-					value={search}
+					value={search ?? ""}
 					onChange={handleInputChange}
 				/>
 			</div>
