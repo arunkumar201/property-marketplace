@@ -52,7 +52,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable}`}
       >
         <NuqsAdapter>
-        <div className="flex flex-col min-h-screen antialiased p-12 overflow-scroll">
+          <div className="flex flex-col min-h-screen antialiased p-2  sm:p-3 md:p-12 overflow-scroll">
             <Toaster
               position="bottom-right"
             />
