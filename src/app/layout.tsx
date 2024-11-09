@@ -5,6 +5,7 @@ import { env } from "@/env";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -50,14 +51,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable}`}
       >
+        <NuqsAdapter>
         <div className="flex flex-col min-h-screen antialiased p-12 overflow-scroll">
             <Toaster
               position="bottom-right"
-          />
+            />
             <Navbar />
             {children}
           <Footer />
         </div>
+        </NuqsAdapter>
       </body>
     </html>
   );

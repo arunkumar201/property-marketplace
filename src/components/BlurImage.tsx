@@ -16,10 +16,12 @@ export function BlurImage({
 		<Image
 			src={url}
 			alt={name}
-			quality={90}
-			objectFit="cover"
+			quality={85}
+			placeholder="blur"
+			loading="lazy"
 			width={300}
 			height={300}
+			style={{ objectFit: "cover" }}
 			className={`h-[240px] min-w-[360px] w-full rounded-t-xl object-fill
               duration-700 ease-in-out group-hover:opacity-75 hover:scale-105 hover:shadow-xl
               ${isLoading ? "blur-xl backdrop" : "blur-0 grayscale-0"})`

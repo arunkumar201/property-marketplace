@@ -1,20 +1,21 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 "use client";
 
-import { ROOM_OPTIONS } from "@/constants";
-import { useRouter,useSearchParams } from "next/navigation";
-import React,{ createContext,useEffect,useState } from "react";
+import React,{ createContext,useEffect,useRef,useTransition } from "react";
+import { useQueryState,parseAsFloat,parseAsArrayOf,parseAsString,parseAsInteger } from 'nuqs';
 
 export interface FilterContextType {
-	location: string;
-	type: string;
-	saleType: string; // propertyOn means - BUY or SELL
-	priceMin: string;
-	priceMax: string;
-	areaMin: string;
-	areaMax: string;
-	rooms: string[];
-	currentPage: string;
+	location: string | null;
+	type: string | null;
+	saleType: string | null; // propertyOn means - BUY or SELL
+	priceMin: number | null;
+	priceMax: number | null;
+	areaMin: number | null;
+	areaMax: number | null;
+	rooms: string[] | null;
+	currentPage: number | null;
 	setFilter: (key: string,value: string | string[]) => void;
+	isLoading: boolean;
 }
 
 export const FilterContext = createContext<FilterContextType | undefined>(
@@ -24,74 +25,106 @@ export const FilterContext = createContext<FilterContextType | undefined>(
 export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
-	const searchParams = useSearchParams();
-	const router = useRouter();
-
-	const [filters,setFilters] = useState({
-		location: searchParams.get("location") ?? "",
-		type: searchParams.get("type") ?? "Haus",
-		saleType: searchParams.get("saleType") ?? "BUY",
-		priceMin: searchParams.get("priceMin") ?? "10",
-		priceMax: searchParams.get("priceMax") ?? "4000000",
-		areaMin: searchParams.get("areaMin") ?? "10",
-		areaMax: searchParams.get("areaMax") ?? "2000000",
-		rooms: searchParams.get("rooms")?.split(",") ?? ROOM_OPTIONS,
-		currentPage: searchParams.get("currentPage") ?? "1",
+	const isMounted = useRef(false);
+	const [isLoading,startTransition] = useTransition()
+	const [location,setLocation] = useQueryState('location',{
+		shallow: false,
+		startTransition,
 	});
+	const [type,setType] = useQueryState('type',{
+		shallow: false,
+		startTransition,
+
+	});
+	const [saleType,setSaleType] = useQueryState('saleType',{
+		shallow: false,
+		startTransition
+	});
+	const [priceMin,setPriceMin] = useQueryState('priceMin',parseAsFloat.withDefault(10).withOptions({
+		shallow: false,
+		startTransition
+	}));
+	const [priceMax,setPriceMax] = useQueryState('priceMax',parseAsFloat.withDefault(Number.MAX_SAFE_INTEGER).withOptions({
+		shallow: false,
+		startTransition
+	}));
+	const [areaMin,setAreaMin] = useQueryState('areaMin',parseAsFloat.withDefault(10).withOptions({
+		shallow: true,
+		startTransition
+	}));
+	const [areaMax,setAreaMax] = useQueryState('areaMax',parseAsFloat.withDefault(Number.MAX_SAFE_INTEGER).withOptions({
+		shallow: false,
+		startTransition
+	}));
+	const [rooms,setRooms] = useQueryState('rooms',parseAsArrayOf(parseAsString,';').withOptions({ shallow: false }));
+
+	const [currentPage,setCurrentPage] = useQueryState("currentPage",parseAsInteger.withDefault(1).withOptions({
+		startTransition,
+		shallow:false
+	}))
+
+	//set the  currentPage to 1 if  other filter change 
+	useEffect(() => {
+		if (!isMounted.current) {
+			isMounted.current = true;
+			return;
+		}
+
+		if (currentPage !== 1) {
+			setCurrentPage(1);
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[location,type,saleType,priceMin,priceMax,areaMin,areaMax,rooms]);
+
 
 	const setFilter = (key: string,value: string | string[]) => {
-		setFilters((prevFilters) => {
-			const updatedFilters = {
-				...prevFilters,
-				[key]: value,
-			};
-
-			if (key !== 'currentPage') {
-				updatedFilters.currentPage = '1';
-			}
-
-			return updatedFilters;
-		});
+		switch (key) {
+			case 'location':
+				setLocation(value as string);
+				break;
+			case 'type':
+				setType(value as string);
+				break;
+			case 'saleType':
+				setSaleType(value as string);
+				break;
+			case 'priceMin':
+				console.log(value);
+				setPriceMin(Number(value as string));
+				break;
+			case 'priceMax':
+				setPriceMax(Number(value));
+				break;
+			case 'areaMin':
+				setAreaMin(Number(value));
+				break;
+			case 'areaMax':
+				setAreaMax(Number(value));
+				break;
+			case 'rooms':
+				setRooms(Array.isArray(value) ? value : value.split(','));
+				break;
+			case 'currentPage':
+				setCurrentPage(Number(value));
+				break;
+			default:
+				break;
+		}
 	};
 
-	const applyFilters = () => {
-		const params = new URLSearchParams();
 
-		if (filters.location || filters.location === "")
-			params.set("location",filters.location);
-		if (filters.type) params.set("type",filters.type);
-		if (filters.saleType) params.set("saleType",filters.saleType);
-		if (filters.priceMin) params.set("priceMin",filters.priceMin);
-		if (filters.priceMax) params.set("priceMax",filters.priceMax);
-		if (filters.areaMin) params.set("areaMin",filters.areaMin);
-		if (filters.areaMax) params.set("areaMax",filters.areaMax);
-		if (filters.rooms) params.set("rooms",filters.rooms.join(","));
-		if (filters.currentPage) params.set("currentPage",filters.currentPage);
-
-		router.push(`?${params.toString()}`);
+	const filters = {
+		location,
+		type,
+		saleType,
+		priceMin,
+		priceMax,
+		areaMin,
+		areaMax,
+		rooms: rooms,
+		currentPage: currentPage ?? 1,
+		isLoading
 	};
-
-
-	useEffect(() => {
-		applyFilters();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[filters]);
-
-	useEffect(() => {
-		const newFilters = {
-			location: searchParams.get("location") ?? "",
-			type: searchParams.get("type") ?? "Haus",
-			saleType: searchParams.get("saleType") ?? "SELL",
-			priceMin: searchParams.get("priceMin") ?? "100",
-			priceMax: searchParams.get("priceMax") ?? "40000000",
-			areaMin: searchParams.get("areaMin") ?? "10",
-			areaMax: searchParams.get("areaMax") ?? "20000000",
-			rooms: searchParams.get("rooms")?.split(",") ?? ROOM_OPTIONS,
-			currentPage: searchParams.get("currentPage") ?? "1",
-		};
-
-		setFilters(newFilters);
-	},[searchParams]);
 
 	return (
 		<FilterContext.Provider value={{ ...filters,setFilter }}>
