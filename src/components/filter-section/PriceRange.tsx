@@ -11,11 +11,11 @@ import { useDebounce } from '@/hooks';
 
 export const PriceRange: React.FC = () => {
 	const { priceMin,priceMax,setFilter } = useFilter();
-	const [localPriceMin,setLocalPriceMin] = useState(priceMin);
-	const [localPriceMax,setLocalPriceMax] = useState(priceMax);
+	const [localPriceMin,setLocalPriceMin] = useState(priceMin!);
+	const [localPriceMax,setLocalPriceMax] = useState(priceMax!);
 
-	const debouncedPriceMax = useDebounce(localPriceMax,600);
-	const debouncedPriceMin = useDebounce(localPriceMin,600);
+	const debouncedPriceMax = useDebounce(localPriceMax.toString(),600);
+	const debouncedPriceMin = useDebounce(localPriceMin.toString(),600);
 
 	const [isOpen,setIsOpen] = useState(false);
 
@@ -35,20 +35,21 @@ export const PriceRange: React.FC = () => {
 
 	const handleChange = (key: 'priceMin' | 'priceMax',value: string) => {
 		const numericValue = parseFloat(value);
-		if (key === 'priceMin' && numericValue > parseFloat(localPriceMax)) {
+		if (key === 'priceMin' && numericValue > localPriceMax) {
 			toast.error("Min price cannot be greater than max price");
 			return;
 		}
-		if (key === 'priceMax' && numericValue < parseFloat(localPriceMin)) {
+		if (key === 'priceMax' && numericValue < localPriceMin) {
 			toast.error("Max price cannot be less than min price");
 			return;
 		}
 		if (key === 'priceMin') {
-			setLocalPriceMin(value);
+			setLocalPriceMin(Number(value));
 		} else {
-			setLocalPriceMax(value);
+			setLocalPriceMax(Number(value));
 		}
 	};
+
 
 	return (
 		<Popover open={isOpen} onOpenChange={setIsOpen}>

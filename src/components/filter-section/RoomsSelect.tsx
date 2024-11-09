@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 
 export const RoomsSelect: React.FC = () => {
 	const { rooms,setFilter } = useFilter();
+
 	const [isOpen,setIsOpen] = useState(false);
 
 	const handleRoomClick = (value: string) => {

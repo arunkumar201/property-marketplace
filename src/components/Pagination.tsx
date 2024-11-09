@@ -15,7 +15,7 @@ const Pagination: React.FC<PaginationProps> = ({
 	className = '',
 }) => {
 	const [visiblePages,setVisiblePages] = useState<number[]>([]);
-	const { currentPage,setFilter } = useFilter();
+	const { currentPage,setFilter,isLoading } = useFilter();
 
 	const onPageChange = (page: number) => {
 		if (page > 0 && page <= totalPages) {
@@ -62,7 +62,7 @@ const Pagination: React.FC<PaginationProps> = ({
 				className='w-fit p-3 flex justify-between items-center'
 				size="icon"
 				onClick={() => onPageChange(Math.max(1,Number(currentPage) - 1))}
-				disabled={Number(currentPage) === 1}
+				disabled={Number(currentPage) === 1 && isLoading}
 			>
 				<ChevronLeft className="h-6 w-6 text-gray-700 -ml-3" />
 				<span className='text-[#31393D]'>Zurück</span>
@@ -76,6 +76,7 @@ const Pagination: React.FC<PaginationProps> = ({
 						key={page}
 							variant={Number(currentPage) === page ? "default" : "outline"}
 						size="icon"
+							disabled={isLoading}
 						onClick={() => onPageChange(page)}
 					>
 						{page}
@@ -87,7 +88,7 @@ const Pagination: React.FC<PaginationProps> = ({
 				className='w-fit p-3 flex justify-between items-center'
 				size="icon"
 				onClick={() => onPageChange(Math.min(totalPages,Number(currentPage) + 1))}
-				disabled={Number(currentPage) === totalPages}
+				disabled={Number(currentPage) === totalPages || isLoading}
 			>
 				<span className='text-[#31393D]'>Weiter</span>
 				<ChevronRight className="h-6 w-6 text-gray-700" />

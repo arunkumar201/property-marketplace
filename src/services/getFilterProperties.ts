@@ -1,9 +1,10 @@
 import "server-only";
 import { unstable_cache } from "next/cache";
 import { Property } from "@/models";
-import { ITEM_PER_PAGE, ROOM_OPTIONS } from "@/constants";
+import { ITEM_PER_PAGE } from "@/constants";
 import { DEFAULT_CACHE_TIME } from ".";
 import { searchParamsCache } from "@/utils/searchParams";
+import { buildFilterConditions } from "@/utils/buildFilterConditionsForProperty";
 
 interface IGetFilterProperties {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -13,55 +14,13 @@ interface IGetFilterProperties {
 export const getFilterProperties = async ({ params }: IGetFilterProperties) => {
 	console.log("Received params service:", params);
 	const parsedParams = searchParamsCache.parse(params);
-
 	const itemsPerPage = ITEM_PER_PAGE;
 
 	return unstable_cache(
 		async () => {
 			try {
-				const selectedRooms =
-					parsedParams.rooms && parsedParams.rooms.length === 0
-						? ROOM_OPTIONS
-						: parsedParams.rooms;
-				const hasSixPlus = selectedRooms && selectedRooms.includes("6+");
-				const finiteRooms = hasSixPlus
-					? []
-					: selectedRooms &&
-					  selectedRooms
-							.map((room: string) => parseInt(room, 10))
-							.filter(Number.isFinite);
-
-				const filterConditions: Record<string, unknown>[] = [];
-				const escapeRegex = (string: string) =>
-					string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
-				if (parsedParams.location) {
-					filterConditions.push({
-						location: new RegExp(escapeRegex(parsedParams.location), "i"),
-					});
-				}
-				if (parsedParams.type) {
-					filterConditions.push({
-						type: new RegExp(escapeRegex(parsedParams.type), "i"),
-					});
-				}
-				filterConditions.push({
-					rooms: hasSixPlus ? { $gte: 6 } : { $in: finiteRooms },
-				});
-				filterConditions.push({
-					price: {
-						$gte: parsedParams.minPrice,
-						$lte: parsedParams.maxPrice,
-					},
-				});
-				filterConditions.push({ saleType: parsedParams.saleType });
-				filterConditions.push({
-					area: {
-						$gte: parsedParams.minArea,
-						$lte: parsedParams.maxArea,
-					},
-				});
-
+				const filterConditions = buildFilterConditions(parsedParams);
+				console.log("filterConditions", filterConditions);
 				const query =
 					filterConditions.length > 0 ? { $and: filterConditions } : {};
 

@@ -16,3 +16,7 @@ export const searchParamsCache = createSearchParamsCache({
 	type: parseAsString,
 	saleType: parseAsString,
 });
+
+export type PropertySearchParams = Awaited<
+	ReturnType<typeof searchParamsCache.parse>
+>;

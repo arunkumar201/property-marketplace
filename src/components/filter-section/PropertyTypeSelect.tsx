@@ -1,3 +1,5 @@
+'use client'
+
 import { useFilter } from "@/hooks/useSearchFilter";
 import { Select,SelectContent,SelectItem,SelectTrigger,SelectValue } from "../ui/select";
 import { PROPERTY_TYPES } from "@/constants";

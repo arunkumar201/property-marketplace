@@ -36,10 +36,9 @@ export const dynamic = 'force-dynamic'
 
 export default async function Home({ params,searchParams }: IHomePage) {
   // const refinedFilterCriteria = getRefineFilterParams(searchParams);
-  console.log("search params",searchParams,params);
-
+  console.log("search params",params);
   const { properties,totalPages } = await getFilterProperties({ params: searchParams });
-  // console.log(properties,"-----")
+  //simulate the wait 
   return (
     <div className="h-full w-full mt-10 grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen gap-16  font-[family-name:var(--font-geist-sans)]">
       <PropertyListing propertyList={properties} totalPages={totalPages} params={JSON.stringify(searchParams)} />

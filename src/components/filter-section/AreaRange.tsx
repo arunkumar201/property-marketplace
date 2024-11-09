@@ -11,11 +11,11 @@ import { useDebounce } from '@/hooks';
 
 export const AreaRange: React.FC = () => {
 	const { areaMin,areaMax,setFilter } = useFilter();
-	const [localAreaMin,setLocalAreaMin] = useState(areaMin);
-	const [localAreaMax,setLocalAreaMax] = useState(areaMax);
+	const [localAreaMin,setLocalAreaMin] = useState(areaMin!);
+	const [localAreaMax,setLocalAreaMax] = useState(areaMax!);
 
-	const debouncedAreaMax = useDebounce(localAreaMax,600);
-	const debouncedAreaMin = useDebounce(localAreaMin,600);
+	const debouncedAreaMax = useDebounce(localAreaMax.toString(),600);
+	const debouncedAreaMin = useDebounce(localAreaMin.toString(),600);
 
 	const [isOpen,setIsOpen] = useState(false);
 
@@ -33,18 +33,18 @@ export const AreaRange: React.FC = () => {
 
 	const handleChange = (key: 'areaMin' | 'areaMax',value: string) => {
 		const numericValue = parseFloat(value);
-		if (key === 'areaMin' && numericValue > parseFloat(localAreaMax)) {
+		if (key === 'areaMin' && numericValue > localAreaMax) {
 			alert("Min area cannot be greater than max area");
 			return;
 		}
-		if (key === 'areaMax' && numericValue < parseFloat(localAreaMin)) {
+		if (key === 'areaMax' && numericValue < localAreaMin) {
 			alert("Max area cannot be less than min area");
 			return;
 		}
 		if (key === 'areaMin') {
-			setLocalAreaMin(value);
+			setLocalAreaMin(Number(value));
 		} else {
-			setLocalAreaMax(value);
+			setLocalAreaMax(Number(value));
 		}
 	};
 
