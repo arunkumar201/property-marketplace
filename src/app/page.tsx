@@ -40,7 +40,7 @@ export default async function Home({ params,searchParams }: IHomePage) {
   const { properties,totalPages } = await getFilterProperties({ params: searchParams });
   //simulate the wait 
   return (
-    <div className="h-full w-full mt-10 grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen gap-16  font-[family-name:var(--font-geist-sans)]">
+    <div className="max-w-screen-2xl mx-auto h-full w-full mt-5 items-center justify-items-center min-h-screen font-[family-name:var(--font-geist-sans)]">
       <PropertyListing propertyList={properties} totalPages={totalPages} params={JSON.stringify(searchParams)} />
     </div>
   );

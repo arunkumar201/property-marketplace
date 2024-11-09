@@ -73,7 +73,7 @@ export const LocationInput: React.FC = () => {
 				<MapPin className="mr-2 h-4 w-4 shrink-0 text-gray-400" />
 				<input
 					type="text"
-					className="relative flex-1 outline-none bg-transparent"
+					className="relative flex-1 outline-none bg-transparent w-full"
 					placeholder="Bundesland, Ort oder Postleitzahl"
 					value={search ?? ""}
 					onChange={handleInputChange}

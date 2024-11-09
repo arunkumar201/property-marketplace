@@ -56,7 +56,7 @@ const Pagination: React.FC<PaginationProps> = ({
 	},[totalPages,currentPage]);
 
 	return (
-		<nav className={`flex items-center justify-center space-x-2 ${className}`}>
+		<nav className={`flex flex-wrap gap-3 items-center justify-center space-x-2 ${className}`}>
 			<Button
 				variant="outline"
 				className='w-fit p-3 flex justify-between items-center'

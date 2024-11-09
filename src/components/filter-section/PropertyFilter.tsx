@@ -8,8 +8,8 @@ import { ApplyFilterButton } from "../ApplyFilterButton";
 export const PropertyFilter: React.FC = () => {
 
 	return (
-		<div className="flex bg-white rounded-lg w-full gap-4 h-fit md:mt-2 mt-[12rem] flex-wrap mb-8 p-4 md:p-2 ">
-			<div className="md:w-[28%] sm:w-full w-[70%]">
+		<div className="flex bg-white rounded-lg w-full gap-4 h-fit mt-2 flex-wrap mb-8 p-4 md:p-2 ">
+			<div className="md:w-[28%] w-full">
 				<LocationInput />
 			</div>
 			<div className="md:w-[70%] w-full flex gap-3  md:flex-nowrap flex-wrap">

@@ -17,7 +17,6 @@ export function BlurImage({
 			src={url}
 			alt={name}
 			quality={85}
-			placeholder="blur"
 			loading="lazy"
 			width={300}
 			height={300}
