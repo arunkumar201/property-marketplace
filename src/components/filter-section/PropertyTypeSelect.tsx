@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 export const TypeSelect: React.FC = () => {
 	const { type,setFilter } = useFilter();
 	return (
-		<Select value={type} onValueChange={(value) => setFilter('type',value)}>
+		<Select value={type ?? "Haus"} onValueChange={(value) => setFilter('type',value)} >
 			<SelectTrigger>
 				<SelectValue placeholder="Typ" />
 			</SelectTrigger>
@@ -22,7 +22,8 @@ export const TypeSelect: React.FC = () => {
 export const PropertyTypeSelect: React.FC = () => {
 	const { saleType,setFilter } = useFilter();
 	return (
-		<Select value={saleType} onValueChange={(value) => setFilter('saleType',value)}>
+		<Select value={saleType ?? "BUY"
+		} onValueChange={(value) => setFilter('saleType',value)}>
 			<SelectTrigger>
 				<SelectValue placeholder="Verkauf oder Wohnung" />
 			</SelectTrigger>
