@@ -10,11 +10,13 @@ export const TypeSelect: React.FC = () => {
 	return (
 		<Select value={type ?? "Haus"} onValueChange={(value) => setFilter('type',value)} >
 			<SelectTrigger>
-				<SelectValue placeholder="Typ" />
+				<SelectValue placeholder="Typ" aria-label="Property Type" />
 			</SelectTrigger>
 			<SelectContent>
 				{PROPERTY_TYPES.map((item,index) => {
-					return <SelectItem key={index} value={item} className={cn("mb-1",type === item && "bg-[#748790]")} > {item}</SelectItem>
+					return <SelectItem
+						aria-label={`property ${item} selected`}
+						key={index} value={item} className={cn("mb-1",type === item && "bg-[#748790]")} > {item}</SelectItem>
 				})}
 			</SelectContent>
 		</Select >
@@ -27,11 +29,11 @@ export const PropertyTypeSelect: React.FC = () => {
 		<Select value={saleType ?? "BUY"
 		} onValueChange={(value) => setFilter('saleType',value)}>
 			<SelectTrigger>
-				<SelectValue placeholder="Verkauf oder Wohnung" />
+				<SelectValue placeholder="Verkauf oder Wohnung" aria-label="Sale Type" />
 			</SelectTrigger>
 			<SelectContent>
-				<SelectItem key="BUY" value="BUY" className={cn("mb-1",saleType == "BUY" && "bg-[#748790]")}>Kaufen</SelectItem>
-				<SelectItem key="SELL" value="SELL" className={cn("mb-1",saleType == "SELL" && "bg-[#748790]")}> Verkaufen</SelectItem>
+				<SelectItem key="BUY" value="BUY" className={cn("mb-1",saleType == "BUY" && "bg-[#748790]")} aria-label="Buy">Kaufen</SelectItem>
+				<SelectItem key="SELL" value="SELL" className={cn("mb-1",saleType == "SELL" && "bg-[#748790]")} aria-label="Sell"> Verkaufen</SelectItem>
 			</SelectContent>
 		</Select >
 	)

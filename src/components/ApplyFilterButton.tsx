@@ -22,6 +22,7 @@ export const ApplyFilterButton = () => {
 					alt="icon-prop"
 					width={60}
 					height={50}
+
 					className="text-gray-50 w-4 h-4 lg:w-10 lg:h-4"
 				/>
 			</div>

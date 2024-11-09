@@ -26,7 +26,9 @@ export const RoomsSelect: React.FC = () => {
 	return (
 		<Popover open={isOpen} onOpenChange={setIsOpen}>
 			<PopoverTrigger asChild>
-				<Button variant="outline" className="w-[200px] justify-between">
+				<Button variant="outline" className="w-[200px] justify-between"
+					aria-label="Room Options"
+				>
 					{"Zimmer"}
 					<ChevronDown className="ml-2" />
 				</Button>
@@ -37,6 +39,7 @@ export const RoomsSelect: React.FC = () => {
 						<Button
 							className={cn('m-0 w-[3rem] p-1 md:p-1',rooms && rooms.includes(value) && "bg-[#748790]")}
 							key={value}
+							aria-label={`room with ${value} selected`}
 							variant={rooms && rooms.includes(value) ? "default" : "outline"}
 							onClick={() => handleRoomClick(value)}
 						>
