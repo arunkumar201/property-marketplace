@@ -16,7 +16,7 @@ export const PropertyListing: React.FC<IPropertyListing> = ({ params,propertyLis
 	return (
 		<FilterProvider>
 			<PropertyFilter />
-			<div className="h-fit w-full grid grid-cols-[repeat(auto-fit,minmax(w-[100px],1fr))] md:grid-cols-[repeat(auto-fit,minmax(w-[220px],1fr))] lg:grid-cols-[repeat(auto-fit,minmax(360px,1fr))] gap-x-2 gap-y-5 mt-[2rem] md:-mt-4 auto-rows-fr">
+			<div className="h-fit w-full grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(230px,1fr))] lg:grid-cols-[repeat(auto-fit,minmax(260px,1fr))] xl:grid-cols-[repeat(auto-fit,minmax(330px,1fr))] gap-x-2 gap-y-4 mt-[2rem] md:-mt-4 auto-rows-fr">
 				<Suspense fallback={<PropertyListSkeleton />} key={params}>
 					{propertyList.length > 0 ? propertyList.map((property) => (
 							<PropertyListingCard key={property.id} {...property} />
