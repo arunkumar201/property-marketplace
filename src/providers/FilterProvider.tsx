@@ -3,6 +3,7 @@
 
 import React,{ createContext,useEffect,useRef,useTransition } from "react";
 import { useQueryState,parseAsFloat,parseAsArrayOf,parseAsString,parseAsInteger } from 'nuqs';
+import toast from "react-hot-toast";
 
 export interface FilterContextType {
 	location: string | null;
@@ -124,6 +125,30 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
 				break;
 		}
 	};
+
+	useEffect(() => {
+		// update query state when filters change
+		let id: string | undefined;
+		let timeoutId: string | number | NodeJS.Timeout | undefined;
+		if (isLoading && isMounted.current) {
+			id = toast.loading("Fetching properties...",{
+				style: {
+					backgroundColor: "#112D4E",
+					color: "#F9F7F7",
+					borderRadius: "9px",
+					padding: "10px",
+					fontSize: "14px",
+					border: "3px solid #DBE2EF",
+					zIndex: 99999999
+				}
+			});
+		} else {
+			timeoutId = setTimeout(() => {
+				toast.remove(id);
+			},400)
+		}
+		return () => clearTimeout(timeoutId);
+	},[isLoading])
 
 
 	const filters = {
