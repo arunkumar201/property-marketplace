@@ -4,11 +4,12 @@ import { useFilter } from "@/hooks/useSearchFilter";
 import { Select,SelectContent,SelectItem,SelectTrigger,SelectValue } from "../ui/select";
 import { PROPERTY_TYPES } from "@/constants";
 import { cn } from "@/lib/utils";
+import { FilterKey } from "@/providers/FilterProvider";
 
 export const TypeSelect: React.FC = () => {
 	const { type,setFilter } = useFilter();
 	return (
-		<Select value={type ?? "Haus"} onValueChange={(value) => setFilter('type',value)} >
+		<Select value={type ?? "Haus"} onValueChange={(value) => setFilter(FilterKey.Type,value)} >
 			<SelectTrigger>
 				<SelectValue placeholder="Typ" aria-label="Property Type" />
 			</SelectTrigger>
@@ -27,7 +28,7 @@ export const PropertyTypeSelect: React.FC = () => {
 	const { saleType,setFilter } = useFilter();
 	return (
 		<Select value={saleType ?? "BUY"
-		} onValueChange={(value) => setFilter('saleType',value)}>
+		} onValueChange={(value) => setFilter(FilterKey.SaleType,value)}>
 			<SelectTrigger>
 				<SelectValue placeholder="Verkauf oder Wohnung" aria-label="Sale Type" />
 			</SelectTrigger>

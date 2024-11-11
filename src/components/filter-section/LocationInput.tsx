@@ -7,6 +7,7 @@ import { useDebounce } from '@/hooks';
 import { getSupportedLocationsAction } from '@/actions';
 import { ScrollArea } from '../ui/scroll-area';
 import { cn } from '@/lib/utils';
+import { FilterKey } from '@/providers/FilterProvider';
 
 export const LocationInput: React.FC = () => {
 	const { location,setFilter } = useFilter();
@@ -46,7 +47,7 @@ export const LocationInput: React.FC = () => {
 
 	useEffect(() => {
 		if (debouncedSearch?.trim().length === 0) {
-			setFilter("location","")
+			setFilter(FilterKey.CurrentPage,"")
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[debouncedSearch])
@@ -54,7 +55,7 @@ export const LocationInput: React.FC = () => {
 	const handleSelect = (value: string) => {
 		isUserInputRef.current = false;
 		setSearch(value);
-		setFilter('location',value);
+		setFilter(FilterKey.CurrentPage,value);
 		setIsDropdownOpen(false);
 	};
 
