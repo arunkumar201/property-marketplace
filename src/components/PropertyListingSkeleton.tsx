@@ -6,7 +6,7 @@ import { ITEM_PER_PAGE } from '@/constants';
 
 export const PropertyListingSkeleton = () => {
 	return (
-		<Card className="w-[360px] h-[430px] overflow-hidden">
+		<Card className="md:max-w-[360px] w-full mx-auto overflow-hidden shadow-lg h-[430px] flex-1">
 			<CardHeader className="p-0">
 				<Skeleton className="h-[200px] w-full" />
 			</CardHeader>

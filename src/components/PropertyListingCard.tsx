@@ -30,6 +30,7 @@ export const PropertyListingCard: React.FC<IPropertyListingCard> = async ({
 	imageUrl,
 	views
 }) => {
+	// await new Promise(r => setTimeout(r,5));
 	return (
 		<Card className="md:max-w-[360px] w-full mx-auto overflow-hidden shadow-lg h-[430px] flex-1">
 			<CardHeader className="p-0">
@@ -46,10 +47,10 @@ export const PropertyListingCard: React.FC<IPropertyListingCard> = async ({
 				<p className="text-sm text-gray-800 mb-1">{`ID: ${id} | ${type} | ${location}`}</p>
 				<p className="text-sm text-gray-800 ">{`${rooms} Zimmer | ${bathrooms} Bad | ${area}  m²`}</p>
 			</CardContent>
-			<CardFooter className="bg-inherit p-4 flex justify-between items-center mb-1">
-				<p className="text-base lg:text-[20px] font-bold text-[#31393D]">{formatCurrency('de-DE',price,'EUR')}</p>
-				<div className="flex items-center text-[#748790] gap-2 mt-2">
-					<span className="text-base">{views}</span>
+			<CardFooter className="bg-inherit p-4 flex justify-between items-center -mb-1">
+				<p className="text-sm lg:text-[20px] font-bold text-[#31393D]">{formatCurrency('de-DE',price,'EUR')}</p>
+				<div className="flex items-center text-[#748790] gap-2">
+					<span className="text-sm md:text-[20px]">{views}</span>
 					<Eye className="h-6 w-6  mr-1" />
 				</div>
 			</CardFooter>

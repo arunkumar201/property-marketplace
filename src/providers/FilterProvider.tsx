@@ -72,7 +72,8 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const [currentPage,setCurrentPage] = useQueryState("currentPage",parseAsInteger.withDefault(1).withOptions({
 		startTransition,
-		shallow:false
+		shallow: false,
+		scroll: true,
 	}))
 
 	//set the  currentPage to 1 if  other filter change 
