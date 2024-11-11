@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import { Popover,PopoverContent,PopoverTrigger } from "../ui/popover";
 import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { FilterKey } from '@/providers/FilterProvider';
 
 export const RoomsSelect: React.FC = () => {
 	const { rooms,setFilter } = useFilter();
@@ -20,7 +21,7 @@ export const RoomsSelect: React.FC = () => {
 		} else {
 			updatedRooms = [...(rooms || []),value];
 		}
-		setFilter('rooms',updatedRooms || []);
+		setFilter(FilterKey.Rooms,updatedRooms || []);
 	};
 
 	return (

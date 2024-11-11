@@ -8,9 +8,10 @@ import { Popover,PopoverContent,PopoverTrigger } from "../ui/popover";
 import { ChevronDown } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useDebounce } from '@/hooks';
+import { FilterKey } from '@/providers/FilterProvider';
 
 export const PriceRange: React.FC = () => {
-	const { priceMin,priceMax,setFilter } = useFilter();
+	const { minPrice: priceMin,maxPrice: priceMax,setFilter } = useFilter();
 	const [localPriceMin,setLocalPriceMin] = useState(priceMin!);
 	const [localPriceMax,setLocalPriceMax] = useState(priceMax!);
 
@@ -21,14 +22,19 @@ export const PriceRange: React.FC = () => {
 
 	useEffect(() => {
 		if (debouncedPriceMin) {
-			setFilter('priceMin',debouncedPriceMin);
+			console.log("priceMin",priceMin)
+			setFilter(FilterKey.MinPrice,debouncedPriceMin);
+			console.log("priceMin",priceMax,priceMin)
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[debouncedPriceMin]);
 
 	useEffect(() => {
 		if (debouncedPriceMax) {
-			setFilter('priceMax',debouncedPriceMax);
+			console.log("priceMax",priceMax)
+			setFilter(FilterKey.MaxPrice,debouncedPriceMax);
+			console.log("priceMin",priceMax,priceMin)
+
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[debouncedPriceMax]);

@@ -8,9 +8,10 @@ import { Button } from "../ui/button";
 import { Popover,PopoverContent,PopoverTrigger } from "../ui/popover";
 import { ChevronDown } from 'lucide-react';
 import { useDebounce } from '@/hooks';
+import { FilterKey } from '@/providers/FilterProvider';
 
 export const AreaRange: React.FC = () => {
-	const { areaMin,areaMax,setFilter } = useFilter();
+	const { minArea: areaMin,maxArea: areaMax,setFilter } = useFilter();
 	const [localAreaMin,setLocalAreaMin] = useState(areaMin!);
 	const [localAreaMax,setLocalAreaMax] = useState(areaMax!);
 
@@ -21,13 +22,13 @@ export const AreaRange: React.FC = () => {
 
 	useEffect(() => {
 		if (debouncedAreaMin) {
-			setFilter('areaMin',debouncedAreaMin);
+			setFilter(FilterKey.MinArea,debouncedAreaMin);
 		}
 	},[debouncedAreaMin]);
 
 	useEffect(() => {
 		if (debouncedAreaMax) {
-			setFilter("areaMax",debouncedAreaMax);
+			setFilter(FilterKey.MaxArea,debouncedAreaMax);
 		}
 	},[debouncedAreaMax]);
 

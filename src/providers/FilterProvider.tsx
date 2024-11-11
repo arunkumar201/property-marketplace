@@ -8,14 +8,26 @@ export interface FilterContextType {
 	location: string | null;
 	type: string | null;
 	saleType: string | null; // propertyOn means - BUY or SELL
-	priceMin: number | null;
-	priceMax: number | null;
-	areaMin: number | null;
-	areaMax: number | null;
+	minPrice: number | null;
+	maxPrice: number | null;
+	minArea: number | null;
+	maxArea: number | null;
 	rooms: string[] | null;
 	currentPage: number | null;
-	setFilter: (key: string,value: string | string[]) => void;
+	setFilter: (key: FilterKey,value: string | string[]) => void;
 	isLoading: boolean;
+}
+
+export enum FilterKey {
+	Location = "location",
+	Type = "type",
+	SaleType = "saleType",
+	MinPrice = "minPrice",
+	MaxPrice = "maxPrice",
+	MinArea = "minArea",
+	MaxArea = "maxArea",
+	Rooms = "rooms",
+	CurrentPage = "currentPage",
 }
 
 export const FilterContext = createContext<FilterContextType | undefined>(
@@ -40,19 +52,19 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
 		shallow: false,
 		startTransition
 	});
-	const [priceMin,setPriceMin] = useQueryState('priceMin',parseAsFloat.withDefault(10).withOptions({
+	const [minPrice,setPriceMin] = useQueryState('minPrice',parseAsFloat.withDefault(10).withOptions({
 		shallow: false,
 		startTransition
 	}));
-	const [priceMax,setPriceMax] = useQueryState('priceMax',parseAsFloat.withDefault(Number.MAX_SAFE_INTEGER).withOptions({
+	const [maxPrice,setPriceMax] = useQueryState('maxPrice',parseAsFloat.withDefault(Number.MAX_SAFE_INTEGER).withOptions({
 		shallow: false,
 		startTransition
 	}));
-	const [areaMin,setAreaMin] = useQueryState('areaMin',parseAsFloat.withDefault(10).withOptions({
-		shallow: true,
+	const [minArea,setAreaMin] = useQueryState('minArea',parseAsFloat.withDefault(10).withOptions({
+		shallow: false,
 		startTransition
 	}));
-	const [areaMax,setAreaMax] = useQueryState('areaMax',parseAsFloat.withDefault(Number.MAX_SAFE_INTEGER).withOptions({
+	const [maxArea,setAreaMax] = useQueryState('maxArea',parseAsFloat.withDefault(Number.MAX_SAFE_INTEGER).withOptions({
 		shallow: false,
 		startTransition
 	}));
@@ -74,37 +86,37 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
 			setCurrentPage(1);
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[location,type,saleType,priceMin,priceMax,areaMin,areaMax,rooms]);
+	},[location,type,saleType,minPrice,maxPrice,minArea,maxArea,rooms]);
 
 
-	const setFilter = (key: string,value: string | string[]) => {
+	const setFilter = (key: FilterKey,value: string | string[]) => {
 		switch (key) {
-			case 'location':
+			case FilterKey.Location:
 				setLocation(value as string);
 				break;
-			case 'type':
+			case FilterKey.Type:
 				setType(value as string);
 				break;
-			case 'saleType':
+			case FilterKey.SaleType:
 				setSaleType(value as string);
 				break;
-			case 'priceMin':
+			case FilterKey.MinPrice:
 				console.log(value);
 				setPriceMin(Number(value as string));
 				break;
-			case 'priceMax':
+			case FilterKey.MaxPrice:
 				setPriceMax(Number(value));
 				break;
-			case 'areaMin':
+			case FilterKey.MinArea:
 				setAreaMin(Number(value));
 				break;
-			case 'areaMax':
+			case FilterKey.MaxArea:
 				setAreaMax(Number(value));
 				break;
-			case 'rooms':
+			case FilterKey.Rooms:
 				setRooms(Array.isArray(value) ? value : value.split(','));
 				break;
-			case 'currentPage':
+			case FilterKey.CurrentPage:
 				setCurrentPage(Number(value));
 				break;
 			default:
@@ -117,17 +129,18 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
 		location,
 		type,
 		saleType,
-		priceMin,
-		priceMax,
-		areaMin,
-		areaMax,
+		minPrice,
+		maxPrice,
+		minArea,
+		maxArea,
 		rooms: rooms,
 		currentPage: currentPage ?? 1,
-		isLoading
+		isLoading,
+		setFilter
 	};
 
 	return (
-		<FilterContext.Provider value={{ ...filters,setFilter }}>
+		<FilterContext.Provider value={filters}>
 			{children}
 		</FilterContext.Provider>
 	);
