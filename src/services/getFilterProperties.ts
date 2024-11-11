@@ -25,7 +25,9 @@ export const getFilterProperties = async ({ params }: IGetFilterProperties) => {
 					filterConditions.length > 0 ? { $and: filterConditions } : {};
 
 				const totalCount = await Property.countDocuments(query);
-				const skip = (parsedParams.currentPage - 1) * itemsPerPage;
+				const skip =
+					(parsedParams.currentPage <= 0 ? 1 : parsedParams.currentPage - 1) *
+					itemsPerPage;
 				const properties = await Property.find(query)
 					.skip(skip)
 					.sort({ price: 1, area: 1 })
@@ -38,7 +40,8 @@ export const getFilterProperties = async ({ params }: IGetFilterProperties) => {
 				return {
 					properties,
 					totalCount,
-					currentPage: parsedParams.currentPage,
+					currentPage:
+						parsedParams.currentPage == 0 ? 1 : parsedParams.currentPage,
 					totalPages,
 					itemsPerPage,
 				};

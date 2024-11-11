@@ -29,12 +29,12 @@ export const buildFilterConditions = (parsedParams: Record<string, any>) => {
 
 	const filterConditions: Record<string, unknown>[] = [];
 
-	if (parsedParams.location) {
+	if (parsedParams.location && typeof parsedParams.location === "string") {
 		filterConditions.push({
 			location: new RegExp(escapeRegex(parsedParams.location), "i"),
 		});
 	}
-	if (parsedParams.type) {
+	if (parsedParams.type && typeof parsedParams.type === "string") {
 		filterConditions.push({
 			type: new RegExp(escapeRegex(parsedParams.type), "i"),
 		});
@@ -42,21 +42,28 @@ export const buildFilterConditions = (parsedParams: Record<string, any>) => {
 	filterConditions.push({
 		rooms: selectedRooms.includes("6+") ? { $gte: 6 } : { $in: finiteRooms },
 	});
-	console.log("parsedParams in buildFilterConditions", parsedParams);
+
+	const minPrice = parseFloat(parsedParams.minPrice);
+	const maxPrice = parseFloat(parsedParams.maxPrice);
 	filterConditions.push({
 		price: {
-			$gte: parsedParams.minPrice,
-			$lte: parsedParams.maxPrice,
+			$gte: !isNaN(minPrice) ? minPrice : 0,
+			$lte: !isNaN(maxPrice) ? maxPrice : Number.MAX_SAFE_INTEGER,
 		},
 	});
-	if (parsedParams.saleType) {
-		filterConditions.push({ saleType: parsedParams.saleType });
+
+	if (parsedParams.saleType && typeof parsedParams.saleType === "string") {
+		filterConditions.push({
+			saleType: parsedParams.saleType.trim().toUpperCase(),
+		});
 	}
-	
+
+	const minArea = parseFloat(parsedParams.minArea);
+	const maxArea = parseFloat(parsedParams.maxArea);
 	filterConditions.push({
 		area: {
-			$gte: parsedParams.minArea,
-			$lte: parsedParams.maxArea,
+			$gte: !isNaN(minArea) ? minArea : 0,
+			$lte: !isNaN(maxArea) ? maxArea : Number.MAX_SAFE_INTEGER,
 		},
 	});
 

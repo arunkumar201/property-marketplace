@@ -90,6 +90,12 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[location,type,saleType,minPrice,maxPrice,minArea,maxArea,rooms]);
 
+	useEffect(() => {
+		if (currentPage === 0) {
+			setCurrentPage(1);
+		}
+	})
+
 
 	const setFilter = (key: FilterKey,value: string | string[]) => {
 		switch (key) {
