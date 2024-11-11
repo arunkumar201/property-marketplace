@@ -34,7 +34,7 @@ export const PropertyListingSkeleton = () => {
 export const PropertyListSkeleton = () => {
 
 	return (
-		<div className="h-full w-full grid grid-cols-[repeat(auto-fit,minmax(360px,1fr))] gap-x-2 gap-y-5">
+		<div className="h-fit w-full grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(230px,1fr))] lg:grid-cols-[repeat(auto-fit,minmax(260px,1fr))] xl:grid-cols-[repeat(auto-fit,minmax(330px,1fr))] gap-x-2 gap-y-4 mt-[2rem] md:-mt-4 auto-rows-fr">
 			{
 				Array(ITEM_PER_PAGE).fill(null).map((_,index) => (
 					<PropertyListingSkeleton key={index} />

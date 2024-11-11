@@ -22,19 +22,14 @@ export const PriceRange: React.FC = () => {
 
 	useEffect(() => {
 		if (debouncedPriceMin) {
-			console.log("priceMin",priceMin)
 			setFilter(FilterKey.MinPrice,debouncedPriceMin);
-			console.log("priceMin",priceMax,priceMin)
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[debouncedPriceMin]);
 
 	useEffect(() => {
 		if (debouncedPriceMax) {
-			console.log("priceMax",priceMax)
 			setFilter(FilterKey.MaxPrice,debouncedPriceMax);
-			console.log("priceMin",priceMax,priceMin)
-
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[debouncedPriceMax]);

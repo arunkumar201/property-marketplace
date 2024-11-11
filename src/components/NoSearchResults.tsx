@@ -2,7 +2,6 @@ import React from 'react';
 import { SearchX } from 'lucide-react';
 import { Card,CardContent,CardHeader,CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 
 const NoSearchResults = () => {
 	return (
@@ -16,11 +15,11 @@ const NoSearchResults = () => {
 					<p className="text-center text-gray-600">
 						{"We couldn't find any properties matching your search criteria. Try adjusting your filters or search terms."}
 					</p>
-					<Link href={"/"}>
+					<a href={"/"}>
 						<Button variant="outline" className="mt-4">
 							Reset Filters
 						</Button>
-					</Link>
+					</a>
 				</div>
 			</CardContent>
 		</Card>

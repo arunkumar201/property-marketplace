@@ -4,6 +4,7 @@ import React,{ useState,useEffect } from 'react';
 import { ChevronLeft,ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useFilter } from '@/hooks';
+import { FilterKey } from '@/providers/FilterProvider';
 
 interface PaginationProps {
 	totalPages: number;
@@ -19,7 +20,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
 	const onPageChange = (page: number) => {
 		if (page > 0 && page <= totalPages) {
-			setFilter('currentPage',page.toString());
+			setFilter(FilterKey.CurrentPage,page.toString());
 		}
 	};
 
@@ -62,7 +63,7 @@ const Pagination: React.FC<PaginationProps> = ({
 				className='w-fit p-3 flex justify-between items-center'
 				size="icon"
 				onClick={() => onPageChange(Math.max(1,Number(currentPage) - 1))}
-				disabled={Number(currentPage) === 1 && isLoading}
+				disabled={Number(currentPage) === 1 || isLoading}
 			>
 				<ChevronLeft className="h-6 w-6 text-gray-700 -ml-3" />
 				<span className='text-[#31393D]'>Zurück</span>
