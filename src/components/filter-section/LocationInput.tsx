@@ -47,7 +47,7 @@ export const LocationInput: React.FC = () => {
 
 	useEffect(() => {
 		if (debouncedSearch?.trim().length === 0) {
-			setFilter(FilterKey.CurrentPage,"")
+			setFilter(FilterKey.Location,"")
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[debouncedSearch])
